@@ -1,0 +1,38 @@
+package com.locked;
+
+import java.util.ArrayList;
+
+public class LockersApp {
+	
+	public final static String dirPath="/home/davinci/Desktop/javaFullStackDevelopment/myPhase1Project/files";
+
+	public static void main(String[] args) {
+		
+		LockersApp lockersApp= new LockersApp();
+		lockersApp.getFilesOfDir();
+		
+		
+		System.out.println(dirPath);
+
+	}
+	
+	public void getFilesOfDir()
+	{
+		ArrayList<String> fileNames=new ArrayList();
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		fileNames=FileSystemOperations.getFilesFromDir(dirPath);
+		for(var files:fileNames) System.out.println(files);
+	}
+	
+	public void displayMenu()
+	{
+		System.out.println("===========================================");
+		System.out.println("Welcome to lockers");
+		System.out.println("1   ");
+		System.out.println("===========================================");
+		System.out.println("===========================================");
+		
+	}
+	
+
+}

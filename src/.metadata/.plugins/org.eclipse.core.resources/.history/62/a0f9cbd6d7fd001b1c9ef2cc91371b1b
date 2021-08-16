@@ -1,0 +1,12 @@
+package com.locked;
+
+public class LockersApp {
+
+	public static void main(String[] args) {
+		
+		System.out.println("is it working");
+		
+
+	}
+
+}

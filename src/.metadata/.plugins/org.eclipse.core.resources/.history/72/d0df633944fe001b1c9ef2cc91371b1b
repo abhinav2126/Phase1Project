@@ -1,0 +1,132 @@
+package com.locked;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class LockersApp {
+	
+	public final static String dirPath="/home/davinci/Desktop/javaFullStackDevelopment/myPhase1Project/files";
+
+	public static void main(String[] args) 
+	{
+
+		LockersApp lockersApp= new LockersApp();
+		Scanner scn=new Scanner(System.in);
+		
+		while(true)
+		{
+			//Display Menu
+			lockersApp.displayMenu();
+			
+			//Get user input
+			System.out.println("Enter Number");
+			int userChoice;
+			userChoice=Integer.parseInt(scn.nextLine());
+			
+			
+			switch(userChoice)
+			{
+				case 1:
+					lockersApp.getFilesOfDir();
+					break;
+				case 2:
+					lockersApp.addNewFile();
+					break;
+				case 3:
+					lockersApp.removeFile();
+				case 4:
+					lockersApp.searchInputFile();
+					break;
+				case r:
+					System.exit(0);;
+					break;
+				default:
+					System.out.println("Invalid Choice");
+			}
+			System.out.println("\n\nPress Enter to Continue");
+			scn.nextLine();
+
+		}
+		
+	}
+	
+	public void getFilesOfDir()
+	{
+		ArrayList<String> fileNames=new ArrayList<String>();
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		fileNames=FileSystemOperations.getFilesFromDir(dirPath);
+		for(var files:fileNames) System.out.println(files);
+	}
+	
+	public void removeFile()
+	{
+		Scanner scn=new Scanner(System.in);
+		String fileName;
+		System.out.println("Enter name of file");
+		fileName=scn.nextLine();
+		System.out.println(fileName);
+		
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		FileSystemOperations.deleteFile(dirPath, fileName);
+	}
+	
+	public void displayMenu()
+	{
+		System.out.println("===========================================");
+		System.out.println("Welcome to lockers.com");
+		System.out.println("===========================================");
+		System.out.println("1    To get list of all files");
+		System.out.println("2    To add a new file file");
+		System.out.println("3    To remove a file");
+		System.out.println("4    To search a file");
+		System.out.println("5    To Exit Application");
+		System.out.println("===========================================");
+		
+	}
+	
+	public void addNewFile()
+	{
+		Scanner scn=new Scanner(System.in);
+		String fileName;
+		System.out.println("Enter name of file");
+		fileName=scn.nextLine();
+		System.out.println(fileName);
+		
+		int numOfLines=0;
+		System.out.println("Enter number of line for content");
+		numOfLines=Integer.parseInt(scn.nextLine());
+		System.out.println(numOfLines);
+		
+		ArrayList<String> content= new ArrayList<String>();
+		while(numOfLines>0)
+		{
+			System.out.println("Enter content");
+			content.add(scn.nextLine());
+			numOfLines--;
+		}
+		
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		FileSystemOperations.insertFile(dirPath, content, fileName);
+		System.out.println("File Succesfully Added");
+		return ;
+		
+	}
+	
+	public void searchInputFile()
+	{
+		Scanner scn=new Scanner(System.in);
+		String fileName;
+		System.out.println("Enter name of file to be deleted");
+		fileName=scn.nextLine();
+		
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		if(FileSystemOperations.searchFile(dirPath,fileName))
+		{
+			System.out.println("File ound");
+		}
+		else System.out.println("File not found");
+
+	}
+	
+
+}

@@ -1,0 +1,232 @@
+package com.locked;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class LockersApp {
+	
+	public final static String dirPath="/home/davinci/Desktop/javaFullStackDevelopment/myPhase1Project/files";
+
+	public static void main(String[] args) 
+	{
+
+		LockersApp lockersApp= new LockersApp();
+		Scanner scn=new Scanner(System.in);
+		
+		while(true)
+		{
+			//Display Menu
+			lockersApp.displayMenu();
+			
+			//Get user input
+			System.out.println("Enter Number");
+			int userChoice;
+			userChoice=Integer.parseInt(scn.nextLine());
+			
+			
+			//switch between operations
+			switch(userChoice)
+			{
+				case 1:
+					lockersApp.getFilesOfDir();
+					break;
+				case 2:
+					lockersApp.addNewFile();
+					break;
+				case 3:
+					lockersApp.removeFile();
+					break;
+				case 4:
+					lockersApp.searchInputFile();
+					break;
+				case 5:
+					scn.close();
+					System.exit(0);
+					break;
+				default:
+					System.out.println("Invalid Choice");
+			}
+			
+			//Wait for user to see response till user presses enter
+			System.out.println("\n\nPress Enter to Continue");
+			scn.nextLine();
+
+		}
+		
+	}
+	
+	
+	
+	/**
+	 * This Method will display all the files in given directory 
+	 * @param 
+	 * @return void
+	 */
+	public void getFilesOfDir()
+	{
+		try 
+		{
+			//Variable initialization 
+			ArrayList<String> fileNames=new ArrayList<String>();
+			FileSystemOperations fileSystemOperations= new FileSystemOperations();
+			
+			//call getFilesFromDir method
+			fileNames=FileSystemOperations.getFilesFromDir(dirPath);
+			
+			//print all files for user
+			System.out.println("Following are the list of files");
+			for(var files:fileNames) System.out.println(files);
+			System.out.println("===========================================");
+		}
+		catch(Exception e)
+		{
+			
+			System.out.println("ERROR CAUGHT ::: " + e.getMessage());	
+		}
+		
+	}
+	
+	
+	/**
+	 * This Method will delete given file  
+	 * @param
+	 * @return void
+	 */
+	public void removeFile()
+	{
+		try 
+		{
+			//Variable initialization 
+			Scanner scn=new Scanner(System.in);
+			FileSystemOperations fileSystemOperations= new FileSystemOperations();
+			String fileName;
+			
+			
+			//user input
+			System.out.println("Enter name of file");
+			fileName=scn.nextLine();
+			System.out.println(fileName);
+			
+			//Call deleteFile method
+			if(FileSystemOperations.deleteFile(dirPath, fileName))
+			{
+				System.out.println("File SuccessFully Deleted");
+			}
+			else
+			{
+				System.out.println("No such file Found");
+			}
+			
+		}
+		
+		catch(Exception e)
+		{
+			
+			System.out.println("ERROR CAUGHT ::: " + e.getMessage());	
+		}
+		System.out.println("===========================================");
+	}
+	
+	
+	/**
+	 * This Method will display menu  
+	 * @param 
+	 * @return void
+	 */
+	public void displayMenu()
+	{
+		System.out.println("===========================================");
+		System.out.println("Welcome to lockers.com");
+		System.out.println("===========================================");
+		System.out.println("\nPress number from menu\n");
+		System.out.println("1    To get list of all files");
+		System.out.println("2    To add a new file file");
+		System.out.println("3    To remove a file");
+		System.out.println("4    To search a file");
+		System.out.println("5    To Exit Application");
+		System.out.println("===========================================");
+		
+	}
+	
+	
+	/**
+	 * This Method will add a new file 
+	 * @param
+	 * @return void
+	 */
+	public void addNewFile()
+	{
+		try 
+		{
+			//Variable initialization 
+			Scanner scn=new Scanner(System.in);
+			String fileName;
+			int numOfLines=0;
+			
+			
+			//User Input
+			System.out.println("Enter name of file");
+			fileName=scn.nextLine();
+			System.out.println("Enter number of line for content");
+			numOfLines=Integer.parseInt(scn.nextLine());
+			System.out.println(numOfLines);
+			ArrayList<String> content= new ArrayList<String>();
+			while(numOfLines>0)
+			{
+				System.out.println("Enter content");
+				content.add(scn.nextLine());
+				numOfLines--;
+			}
+			
+			
+			//call insertFile method to insert a file 
+			FileSystemOperations fileSystemOperations= new FileSystemOperations();
+			FileSystemOperations.insertFile(dirPath, content, fileName);
+			System.out.println("File Succesfully Added");
+		}
+		catch(Exception e)
+		{
+			
+			System.out.println("ERROR CAUGHT ::: " + e.getMessage());	
+		}
+		System.out.println("===========================================");
+		
+		
+	}
+	
+	/**
+	 * This Method will seach a file   
+	 * @param 
+	 * @return void
+	 */
+	public void searchInputFile()
+	{
+		try 
+		{
+			//Variable initialization 
+			Scanner scn=new Scanner(System.in);
+			FileSystemOperations fileSystemOperations= new FileSystemOperations();
+			String fileName;
+			
+			//user input
+			System.out.println("Enter file name to search ");
+			fileName=scn.nextLine();
+		
+			//call seatchFile method
+			if(FileSystemOperations.searchFile(dirPath,fileName))
+			{
+				System.out.println("File found");
+			}
+			else System.out.println("File not found");
+		}
+		
+		catch(Exception e)
+		{
+			
+			System.out.println("ERROR CAUGHT ::: " + e.getMessage());	
+		}
+		System.out.println("===========================================");
+	}
+	
+
+}

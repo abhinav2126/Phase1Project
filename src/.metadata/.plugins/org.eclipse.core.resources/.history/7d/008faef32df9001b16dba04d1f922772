@@ -1,0 +1,57 @@
+package com.locked;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class FileSystemOperations {
+	
+	
+	/**
+	 * This Method will give list of all the files and directory from the given path
+	 * NOTE:-It will not display sub directories  
+	 * @param dirPath
+	 * @return ArrayList
+	 */
+	public static ArrayList<String> getFilesFromDir(String dirPath)
+	{
+		//Variable initialization 
+		List<String> fileCollection=new ArrayList<String>();
+	    
+		try 
+		{
+			//Variable initialization 
+			File file = new File(dirPath);
+			
+		    // returns an array of all files
+		    String[] fileList = file.list();
+		    
+		    //pushing file name in array list
+		    for(String str : fileList)   fileCollection.add(str);
+		      
+		    //sorting array list 
+		    Collections.sort(fileCollection);
+		   
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR CAUGHT ::: " + e.getMessage());
+			
+		}
+		
+		return (ArrayList<String>) fileCollection;
+	}
+	
+	public static boolean insertFile(String dirPath, ArrayList<String> )
+	{
+		boolean isFileInserted=true;
+		
+		
+		return isFileInserted;
+	}
+	
+	
+
+}

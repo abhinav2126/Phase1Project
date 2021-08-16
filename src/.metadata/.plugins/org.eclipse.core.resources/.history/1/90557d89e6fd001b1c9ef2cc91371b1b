@@ -1,0 +1,15 @@
+package com.locked;
+
+public class LockersApp {
+	
+	public finally String dirPath="//home//davinci//Desktop//javaFullStackDevelopment//myPhase1Project/files";
+
+	public static void main(String[] args) {
+		
+		FileSystemOperations fileSystemOperations= new FileSystemOperations();
+		fileSystemOperations
+		
+
+	}
+
+}
